@@ -142,11 +142,13 @@ function Index() {
       <section className="container mx-auto max-w-7xl px-4 py-20">
         <div className="relative overflow-hidden rounded-3xl bg-[image:var(--gradient-brand)] p-12 md:p-16 text-center text-white">
           <GlassDecor variant="hero" />
+          <div className="relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Unlock everything with Pro</h2>
           <p className="mt-3 text-white/90 max-w-lg mx-auto">Unlimited usage, batch processing, larger files, no watermarks and full AI access.</p>
           <div className="mt-6 flex flex-wrap gap-3 justify-center">
             <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90"><Link to="/pricing">See pricing</Link></Button>
             <Button asChild size="lg" variant="outline" className="bg-transparent text-white border-white/40 hover:bg-white/10"><Link to="/signup">Start free</Link></Button>
+          </div>
           </div>
         </div>
       </section>
