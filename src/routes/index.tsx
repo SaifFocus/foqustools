@@ -141,7 +141,7 @@ function Index() {
       {/* Pricing CTA */}
       <section className="container mx-auto max-w-7xl px-4 py-20">
         <div className="relative overflow-hidden rounded-3xl bg-[image:var(--gradient-brand)] p-12 md:p-16 text-center text-white">
-          <GlassDecor variant="transition" />
+          <GlassDecor variant="hero" />
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Unlock everything with Pro</h2>
           <p className="mt-3 text-white/90 max-w-lg mx-auto">Unlimited usage, batch processing, larger files, no watermarks and full AI access.</p>
           <div className="mt-6 flex flex-wrap gap-3 justify-center">
