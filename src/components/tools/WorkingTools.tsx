@@ -15,10 +15,9 @@ function CopyBtn({ text }: { text: string }) {
 
 export function JsonFormatter() {
   const [input, setInput] = useState('{"hello":"world","items":[1,2,3]}');
-  const [error, setError] = useState<string | null>(null);
-  const output = useMemo(() => {
-    try { const v = JSON.parse(input); setError(null); return JSON.stringify(v, null, 2); }
-    catch (e) { setError((e as Error).message); return ""; }
+  const { output, error } = useMemo(() => {
+    try { return { output: JSON.stringify(JSON.parse(input), null, 2), error: null as string | null }; }
+    catch (e) { return { output: "", error: (e as Error).message }; }
   }, [input]);
   return (
     <div className="grid md:grid-cols-2 gap-4">
