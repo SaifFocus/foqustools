@@ -8,7 +8,7 @@ export function Logo() {
         <Sparkles className="w-4 h-4 text-white" />
       </div>
       <span className="font-bold text-lg tracking-tight">
-        Omni<span className="bg-[image:var(--gradient-brand)] bg-clip-text text-transparent">Tools</span>
+        Foqus<span className="bg-[image:var(--gradient-brand)] bg-clip-text text-transparent">Tools</span>
       </span>
     </Link>
   );
