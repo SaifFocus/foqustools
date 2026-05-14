@@ -13,7 +13,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AuthProvider } from "@/lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
-import { CookieConsent } from "@/components/CookieConsent";
 
 function NotFoundComponent() {
   return (
@@ -77,32 +76,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "FoqusTools — Every tool you need, in one place" },
+      { name: "description", content: "Edit images, convert files, work with PDFs, generate content and use developer utilities — instantly from your browser." },
       { name: "author", content: "FoqusTools" },
+      { property: "og:title", content: "FoqusTools — Every tool you need, in one place" },
+      { property: "og:description", content: "Edit images, convert files, work with PDFs, generate content and use developer utilities — instantly from your browser." },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "FoqusTools" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@FoqusTools" },
+      { name: "twitter:title", content: "FoqusTools — Every tool you need, in one place" },
+      { name: "twitter:description", content: "Edit images, convert files, work with PDFs, generate content and use developer utilities — instantly from your browser." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/d34e52c0-fb15-4db8-af50-af672ef2c3ce" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/d34e52c0-fb15-4db8-af50-af672ef2c3ce" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
-      },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "FoqusTools",
-          url: "https://foqustools.lovable.app",
-          creator: {
-            "@type": "Organization",
-            name: "FOQUS",
-            url: "https://focusbranding.se",
-          },
-        }),
       },
     ],
   }),
@@ -140,7 +130,6 @@ function RootComponent() {
           <Footer />
         </div>
         <Toaster />
-        <CookieConsent />
       </AuthProvider>
     </QueryClientProvider>
   );
