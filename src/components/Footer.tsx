@@ -5,7 +5,7 @@ import { categories, popularTools } from "@/lib/tools";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/60 bg-secondary/30 mt-24">
+   <footer className="border-t border-border/60 bg-background/40 backdrop-blur-sm mt-24">
       <div className="container mx-auto max-w-7xl px-4 py-14 grid grid-cols-2 md:grid-cols-5 gap-8">
         <div className="col-span-2">
           <Logo />
