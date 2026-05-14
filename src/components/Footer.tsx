@@ -48,6 +48,18 @@ export function Footer() {
           <p>© {new Date().getFullYear()} FoqusTools. All rights reserved.</p>
           <p>Made with ❤️ for creators, teams and developers.</p>
         </div>
+        <div className="container mx-auto max-w-7xl px-4 pb-5 -mt-2 text-xs text-muted-foreground/80 text-center sm:text-left">
+          Designed &amp; developed by{" "}
+          <a
+            href="https://focusbranding.se"
+            rel="noopener"
+            title="Branding & web design by FOQUS"
+            className="underline decoration-dotted underline-offset-2 hover:text-foreground"
+          >
+            FOQUS
+          </a>
+          .
+        </div>
       </div>
     </footer>
   );
