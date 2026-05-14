@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "./Logo";
 import { useAuth } from "@/lib/auth-context";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const navLinks = [
   { to: "/tools", label: "All Tools" },
@@ -35,6 +36,7 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden md:flex items-center gap-2">
+          <LanguageSwitcher />
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -74,6 +76,7 @@ export function Header() {
               <Button asChild variant="outline" size="sm" className="flex-1"><Link to="/login">Sign in</Link></Button>
               <Button asChild size="sm" className="flex-1 bg-[image:var(--gradient-brand)] text-primary-foreground"><Link to="/signup">Get Started</Link></Button>
             </div>
+            <div className="pt-2 border-t border-border/60 mt-2"><LanguageSwitcher /></div>
           </div>
         </div>
       )}
