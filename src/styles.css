@@ -86,6 +86,12 @@
   --ring: oklch(0.55 0.22 275);
   --gradient-brand: linear-gradient(135deg, oklch(0.55 0.22 275), oklch(0.65 0.25 320));
   --gradient-soft: linear-gradient(180deg, oklch(0.98 0.02 280), oklch(0.99 0.005 250));
+  --gradient-page:
+    radial-gradient(70% 55% at 12% 8%,  oklch(0.94 0.06 350 / 0.55), transparent 60%),
+    radial-gradient(65% 55% at 88% 12%, oklch(0.93 0.07 300 / 0.55), transparent 60%),
+    radial-gradient(70% 50% at 50% 55%, oklch(0.96 0.04 280 / 0.45), transparent 70%),
+    radial-gradient(60% 50% at 20% 95%, oklch(0.95 0.05 30  / 0.40), transparent 65%),
+    linear-gradient(180deg, oklch(0.985 0.015 50) 0%, oklch(0.975 0.03 340) 35%, oklch(0.97 0.035 295) 70%, oklch(0.98 0.02 250) 100%);
   --shadow-soft: 0 4px 24px -8px oklch(0.55 0.22 275 / 0.18);
   --shadow-card: 0 1px 3px oklch(0.2 0.05 265 / 0.06), 0 8px 24px -12px oklch(0.55 0.22 275 / 0.12);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -144,8 +150,11 @@
   }
 
   body {
-    background-color: var(--color-background);
     color: var(--color-foreground);
+    background: var(--gradient-page);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 }
 
