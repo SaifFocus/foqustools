@@ -20,8 +20,6 @@ function Index() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[image:var(--gradient-soft)]" />
-        <div className="absolute -z-10 top-20 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-3xl opacity-30 bg-[image:var(--gradient-brand)]" />
         <GlassDecor variant="hero" />
         <div className="container mx-auto max-w-7xl px-4 pt-20 pb-24 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-background/60 backdrop-blur text-xs font-medium text-muted-foreground mb-6">
@@ -84,7 +82,8 @@ function Index() {
       </section>
 
       {/* Categories */}
-      <section className="container mx-auto max-w-7xl px-4 py-16">
+      <section className="relative container mx-auto max-w-7xl px-4 py-16">
+        <GlassDecor variant="transition" />
         <h2 className="text-3xl font-bold tracking-tight mb-2">Explore by category</h2>
         <p className="text-muted-foreground mb-10">Six suites, dozens of tools — pick your workspace.</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
