@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolSlugRouteImport } from './routes/tool.$slug'
 import { Route as ApiAiTextRouteImport } from './routes/api/ai/text'
@@ -18,6 +19,11 @@ import { Route as ApiAiImageRouteImport } from './routes/api/ai/image'
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,6 +49,7 @@ const ApiAiImageRoute = ApiAiImageRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/tools': typeof ToolsRoute
   '/tool/$slug': typeof ToolSlugRoute
   '/api/ai/image': typeof ApiAiImageRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/tools': typeof ToolsRoute
   '/tool/$slug': typeof ToolSlugRoute
   '/api/ai/image': typeof ApiAiImageRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/tools': typeof ToolsRoute
   '/tool/$slug': typeof ToolSlugRoute
   '/api/ai/image': typeof ApiAiImageRoute
@@ -65,12 +74,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/tools' | '/tool/$slug' | '/api/ai/image' | '/api/ai/text'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/tools'
+    | '/tool/$slug'
+    | '/api/ai/image'
+    | '/api/ai/text'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tools' | '/tool/$slug' | '/api/ai/image' | '/api/ai/text'
+  to:
+    | '/'
+    | '/about'
+    | '/tools'
+    | '/tool/$slug'
+    | '/api/ai/image'
+    | '/api/ai/text'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/tools'
     | '/tool/$slug'
     | '/api/ai/image'
@@ -79,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   ToolsRoute: typeof ToolsRoute
   ToolSlugRoute: typeof ToolSlugRoute
   ApiAiImageRoute: typeof ApiAiImageRoute
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/tools'
       fullPath: '/tools'
       preLoaderRoute: typeof ToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -127,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   ToolsRoute: ToolsRoute,
   ToolSlugRoute: ToolSlugRoute,
   ApiAiImageRoute: ApiAiImageRoute,
@@ -135,3 +166,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
