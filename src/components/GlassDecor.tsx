@@ -69,7 +69,7 @@ export function GlassDecor({ variant = "hero", className = "" }: Props) {
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute inset-0 overflow-visible -z-10 ${className}`}
+      className={`pointer-events-none absolute inset-0 overflow-hidden z-0 ${className}`}
     >
       {shapes.map((s, i) => (
         <img key={i} src={s.src} alt="" loading="lazy" className={s.className} style={s.style} />
