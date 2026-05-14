@@ -2,6 +2,7 @@ import { useRef, useState, type DragEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Upload, Download, Loader2, FileCheck2, X, Copy, Check } from "lucide-react";
+import { toast } from "sonner";
 import type { Tool } from "@/lib/tools";
 
 type Status = "idle" | "processing" | "done";
@@ -120,6 +121,9 @@ export function MockToolRunner({ tool }: { tool: Tool }) {
     document.body.appendChild(a);
     a.click();
     a.remove();
+    toast.success("Download started", {
+      description: `${result.filename} (${(result.blob.size / 1024).toFixed(1)} KB) saved to your device.`,
+    });
   }
 
   async function copyOutput() {
