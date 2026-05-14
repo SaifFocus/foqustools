@@ -7,6 +7,7 @@ import { GradientRunner } from "./runners/GradientRunner";
 import { PaletteExtractorRunner } from "./runners/PaletteExtractorRunner";
 import { AiTextRunner } from "./runners/AiTextRunner";
 import { AiImageRunner } from "./runners/AiImageRunner";
+import { VectorizerRunner } from "./runners/VectorizerRunner";
 import { ComingSoonRunner } from "./runners/ComingSoonRunner";
 import { XmlFormatter, HtmlFormatter, RegexTester, ApiTester, SvgEditor } from "./runners/DevRunners";
 import { JsonFormatter, Base64Tool, UuidTool, TimestampTool, ColorTool, MarkdownTool, MinifierTool } from "./WorkingTools";
@@ -33,6 +34,9 @@ export function resolveRunner(tool: Tool): ReactNode {
   if (s === "gradient-generator") return <GradientRunner />;
   if (s === "palette-extractor") return <PaletteExtractorRunner />;
 
+  // True client-side vectorization with multi-format export
+  if (["vectorizer", "png-to-svg", "jpg-to-svg", "convert-svg"].includes(s)) return <VectorizerRunner tool={tool} />;
+
   // AI text tools
   if (["email-writer", "blog-writer", "product-description", "resume-builder", "cover-letter", "summarizer", "grammar-fixer", "translation", "social-caption", "ad-copy"].includes(s)) {
     return <AiTextRunner tool={tool} />;
@@ -42,8 +46,7 @@ export function resolveRunner(tool: Tool): ReactNode {
   if ([
     "ai-image-generator", "logo-generator", "icon-generator", "favicon-generator",
     "background-remover", "image-upscaler", "restore-photo", "colorize-photo",
-    "watermark-remover", "remove-object", "blur-face", "vectorizer",
-    "png-to-svg", "jpg-to-svg", "convert-svg",
+    "watermark-remover", "remove-object", "blur-face",
     "add-watermark", "meme-generator", "image-to-text",
   ].includes(s)) {
     return <AiImageRunner tool={tool} />;
@@ -73,6 +76,9 @@ const HOW_TO: Partial<Record<string, string[]>> = {
   text: ["Type or paste your input.", "Click Generate — results stream in real time.", "Copy or download the output as Markdown."],
   image: ["Drop in your image or click to browse.", "Tweak the options.", "Process and download — your file never leaves the page."],
   ai: ["Upload your image (or write a prompt).", "AI works in 10–30 seconds.", "Download the generated PNG."],
+  vectorizer: ["Drop in a PNG or JPG — high-contrast subjects work best.", "Pick a style preset and click Vectorize.", "Download as SVG, PDF, AI, or EPS — all with transparent backgrounds."],
+  "png-to-svg": ["Drop in a PNG.", "Pick a style preset and click Vectorize.", "Download as SVG, PDF, AI, or EPS."],
+  "jpg-to-svg": ["Drop in a JPG.", "Pick a style preset and click Vectorize.", "Download as SVG, PDF, AI, or EPS."],
 };
 
 export function howToFor(tool: Tool): string[] {
