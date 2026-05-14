@@ -1,15 +1,14 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
+import logoSrc from "@/assets/foqustools-logo.png";
 
 export function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2 group">
-      <div className="relative w-8 h-8 rounded-xl bg-[image:var(--gradient-brand)] grid place-items-center shadow-[var(--shadow-soft)] transition-transform group-hover:scale-105">
-        <Sparkles className="w-4 h-4 text-white" />
-      </div>
-      <span className="font-bold text-lg tracking-tight">
-        Foqus<span className="bg-[image:var(--gradient-brand)] bg-clip-text text-transparent">Tools</span>
-      </span>
+    <Link to="/" aria-label="FoqusTools — home" className="flex items-center group">
+      <img
+        src={logoSrc}
+        alt="FoqusTools"
+        className="h-9 md:h-10 w-auto transition-transform group-hover:scale-[1.03]"
+      />
     </Link>
   );
 }
