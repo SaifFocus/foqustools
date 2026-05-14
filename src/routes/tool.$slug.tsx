@@ -6,8 +6,8 @@ import { ToolPage } from "@/components/tools/ToolPage";
 export const Route = createFileRoute("/tool/$slug")({
   head: ({ params }) => {
     const tool = getTool(params.slug);
-    if (!tool) return { meta: [{ title: "Tool not found — OmniTools" }] };
-    const title = `${tool.name} — Free Online Tool | OmniTools`;
+    if (!tool) return { meta: [{ title: "Tool not found — FoqusTools" }] };
+    const title = `${tool.name} — Free Online Tool | FoqusTools`;
     return {
       meta: [
         { title },

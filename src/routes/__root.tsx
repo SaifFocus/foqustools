@@ -76,14 +76,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "OmniTools — Every tool you need, in one place" },
+      { title: "FoqusTools — Every tool you need, in one place" },
       { name: "description", content: "Edit images, convert files, work with PDFs, generate content and use developer utilities — instantly from your browser." },
-      { name: "author", content: "OmniTools" },
-      { property: "og:title", content: "OmniTools — All-in-one online toolbox" },
+      { name: "author", content: "FoqusTools" },
+      { property: "og:title", content: "FoqusTools — All-in-one online toolbox" },
       { property: "og:description", content: "Image, PDF, AI writing, file converters and developer utilities. Free, fast and private." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@OmniTools" },
+      { name: "twitter:site", content: "@FoqusTools" },
     ],
     links: [
       {

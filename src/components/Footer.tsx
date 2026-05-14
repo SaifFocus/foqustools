@@ -44,7 +44,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border/60">
         <div className="container mx-auto max-w-7xl px-4 py-5 text-xs text-muted-foreground flex flex-col sm:flex-row gap-2 justify-between">
-          <p>© {new Date().getFullYear()} OmniTools. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} FoqusTools. All rights reserved.</p>
           <p>Made with ❤️ for creators, teams and developers.</p>
         </div>
       </div>
