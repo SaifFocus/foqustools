@@ -47,9 +47,8 @@ async function svgToPdfBlob(svg: string, width: number, height: number): Promise
   const el = doc.documentElement as unknown as Element;
   const orient = width >= height ? "landscape" : "portrait";
   const pdf = new jsPDF({ unit: "pt", format: [width, height], orientation: orient });
-  // svg2pdf augments jsPDF prototype
-  // @ts-expect-error - svg2pdf augmentation
-  await pdf.svg(el, { x: 0, y: 0, width, height });
+  // svg2pdf augments jsPDF prototype at runtime
+  await (pdf as unknown as { svg: (e: Element, o: { x: number; y: number; width: number; height: number }) => Promise<unknown> }).svg(el, { x: 0, y: 0, width, height });
   return pdf.output("blob");
 }
 
