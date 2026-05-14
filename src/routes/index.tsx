@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { categories, popularTools, tools } from "@/lib/tools";
 import { ToolCard } from "@/components/ToolCard";
-import { GlassDecor, GlassOrb, GlassStar } from "@/components/GlassDecor";
+import { GlassDecor } from "@/components/GlassDecor";
 
 export const Route = createFileRoute("/")({ component: Index });
 
@@ -22,7 +22,7 @@ function Index() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[image:var(--gradient-soft)]" />
         <div className="absolute -z-10 top-20 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-3xl opacity-30 bg-[image:var(--gradient-brand)]" />
-        <GlassDecor />
+        <GlassDecor variant="hero" />
         <div className="container mx-auto max-w-7xl px-4 pt-20 pb-24 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-background/60 backdrop-blur text-xs font-medium text-muted-foreground mb-6">
             <Sparkles className="w-3.5 h-3.5 text-primary" /> 90+ tools — and counting
@@ -142,9 +142,7 @@ function Index() {
       {/* Pricing CTA */}
       <section className="container mx-auto max-w-7xl px-4 py-20">
         <div className="relative overflow-hidden rounded-3xl bg-[image:var(--gradient-brand)] p-12 md:p-16 text-center text-white">
-          <GlassOrb tint="pink" size={180} className="-left-10 -top-10" delay={0} />
-          <GlassStar size={120} className="right-6 top-6" delay={0.8} />
-          <GlassOrb tint="violet" size={110} className="right-1/3 -bottom-10" delay={1.4} />
+          <GlassDecor variant="transition" />
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Unlock everything with Pro</h2>
           <p className="mt-3 text-white/90 max-w-lg mx-auto">Unlimited usage, batch processing, larger files, no watermarks and full AI access.</p>
           <div className="mt-6 flex flex-wrap gap-3 justify-center">
