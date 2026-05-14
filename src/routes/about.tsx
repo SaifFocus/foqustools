@@ -9,14 +9,32 @@ export const Route = createFileRoute("/about")({
     const title = "About FoqusTools — Why we built it";
     const description =
       "FoqusTools is the every-day toolbox we kept wishing existed: image, PDF, AI and developer utilities, in one place, instantly, in the browser. Meet the team behind it.";
+    const url = "https://foqustools.lovable.app/about";
     return {
       meta: [
         { title },
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://foqustools.lovable.app/" },
+              { "@type": "ListItem", position: 2, name: "About", item: url },
+            ],
+          }),
+        },
       ],
     };
   },
@@ -94,13 +112,22 @@ function AboutPage() {
               <a
                 href="https://focusbranding.se"
                 rel="noopener"
-                title="FOQUS — Swedish branding, web design, video production and SEO agency"
+                title="FOQUS — Swedish branding agency"
                 className="font-medium underline decoration-dotted underline-offset-4 hover:text-foreground transition-colors"
               >
-                FOQUS — a Swedish branding agency
+                FOQUS
+              </a>
+              , a Swedish branding agency that also runs a dedicated{" "}
+              <a
+                href="https://focusbranding.se/production"
+                rel="noopener"
+                title="FOQUS video production studio"
+                className="font-medium underline decoration-dotted underline-offset-4 hover:text-foreground transition-colors"
+              >
+                video production studio
               </a>{" "}
-              specialising in branding, web design, video production and SEO. It's the toolbox we kept
-              wishing existed for our own clients — so we built it, and opened it up to everyone else too.
+              and an in-house SEO team. FoqusTools is the toolbox we kept wishing existed for our own
+              clients — so we built it, and opened it up to everyone else too.
             </p>
           </div>
         </div>
