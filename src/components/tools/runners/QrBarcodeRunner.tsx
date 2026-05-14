@@ -5,7 +5,7 @@ import { Download } from "lucide-react";
 import { downloadBlob } from "../Dropzone";
 
 export function QrBarcodeRunner({ kind }: { kind: "qr" | "barcode" }) {
-  const [text, setText] = useState(kind === "qr" ? "https://omnitools.app" : "012345678905");
+  const [text, setText] = useState(kind === "qr" ? "https://foqustools.app" : "012345678905");
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

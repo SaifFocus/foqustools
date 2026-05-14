@@ -31,7 +31,7 @@ export function JsonFormatter() {
 }
 
 export function Base64Tool() {
-  const [text, setText] = useState("Hello, OmniTools!");
+  const [text, setText] = useState("Hello, FoqusTools!");
   const [mode, setMode] = useState<"encode" | "decode">("encode");
   const out = useMemo(() => {
     try { return mode === "encode" ? btoa(unescape(encodeURIComponent(text))) : decodeURIComponent(escape(atob(text))); }
@@ -129,7 +129,7 @@ export function ColorTool() {
 }
 
 export function MarkdownTool() {
-  const [md, setMd] = useState("# Hello\n\nWelcome to **OmniTools** — *the* all-in-one toolbox.\n\n- Fast\n- Clean\n- Free");
+  const [md, setMd] = useState("# Hello\n\nWelcome to **FoqusTools** — *the* all-in-one toolbox.\n\n- Fast\n- Clean\n- Free");
   const html = useMemo(() => renderMd(md), [md]);
   return (
     <div className="grid md:grid-cols-2 gap-4">

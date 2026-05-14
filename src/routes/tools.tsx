@@ -7,7 +7,7 @@ import { categories, tools, type CategorySlug } from "@/lib/tools";
 import { ToolCard } from "@/components/ToolCard";
 
 export const Route = createFileRoute("/tools")({
-  head: () => ({ meta: [{ title: "All Tools — OmniTools" }, { name: "description", content: "Browse 90+ free online tools across image, PDF, AI, conversion, design and developer categories." }] }),
+  head: () => ({ meta: [{ title: "All Tools — FoqusTools" }, { name: "description", content: "Browse 90+ free online tools across image, PDF, AI, conversion, design and developer categories." }] }),
   component: AllTools,
 });
 

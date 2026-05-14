@@ -35,7 +35,7 @@ export function XmlFormatter() {
 }
 
 export function HtmlFormatter() {
-  const [src, setSrc] = useState('<div class="card"><h1>Hi</h1><p>OmniTools</p></div>');
+  const [src, setSrc] = useState('<div class="card"><h1>Hi</h1><p>FoqusTools</p></div>');
   const out = useMemo(() => { try { return formatXml(src); } catch (e) { return `// ${(e as Error).message}`; } }, [src]);
   return (
     <div className="grid md:grid-cols-2 gap-4">
@@ -48,7 +48,7 @@ export function HtmlFormatter() {
 export function RegexTester() {
   const [pattern, setPattern] = useState("\\b\\w+@\\w+\\.\\w+\\b");
   const [flags, setFlags] = useState("g");
-  const [text, setText] = useState("Email me at hello@omnitools.app or support@example.com");
+  const [text, setText] = useState("Email me at hello@foqustools.app or support@example.com");
   const { matches, error } = useMemo(() => {
     try {
       const re = new RegExp(pattern, flags);
