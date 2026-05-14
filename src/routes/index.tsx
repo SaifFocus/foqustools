@@ -7,7 +7,41 @@ import { categories, popularTools, tools } from "@/lib/tools";
 import { ToolCard } from "@/components/ToolCard";
 import { GlassDecor } from "@/components/GlassDecor";
 
-export const Route = createFileRoute("/")({ component: Index });
+export const Route = createFileRoute("/")({
+  head: () => {
+    const title = "FoqusTools — 90+ free online tools, in one place";
+    const description =
+      "Free online toolbox: edit images, convert files, work with PDFs, generate content with AI, and run developer utilities — instantly in your browser.";
+    const url = "https://foqustools.lovable.app/";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "FoqusTools",
+            url,
+            logo: "https://foqustools.lovable.app/favicon.ico",
+            sameAs: ["https://focusbranding.se"],
+          }),
+        },
+      ],
+    };
+  },
+  component: Index,
+});
 
 function Index() {
   const [q, setQ] = useState("");

@@ -7,15 +7,33 @@ export const Route = createFileRoute("/tool/$slug")({
   head: ({ params }) => {
     const tool = getTool(params.slug);
     if (!tool) return { meta: [{ title: "Tool not found — FoqusTools" }] };
-    const title = `${tool.name} — Free Online Tool | FoqusTools`;
+    const title = `${tool.name} — Free Online Tool | FoqusTools`.slice(0, 60);
+    const url = `https://foqustools.lovable.app/tool/${tool.slug}`;
     return {
       meta: [
         { title },
         { name: "description", content: tool.description },
         { property: "og:title", content: title },
         { property: "og:description", content: tool.description },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: tool.description },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://foqustools.lovable.app/" },
+              { "@type": "ListItem", position: 2, name: "Tools", item: "https://foqustools.lovable.app/tools" },
+              { "@type": "ListItem", position: 3, name: tool.name, item: url },
+            ],
+          }),
+        },
       ],
     };
   },
