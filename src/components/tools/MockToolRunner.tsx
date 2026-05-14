@@ -1,7 +1,7 @@
 import { useRef, useState, type DragEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Upload, Download, Loader2, FileCheck2, X } from "lucide-react";
+import { Upload, Download, Loader2, FileCheck2, X, Copy, Check } from "lucide-react";
 import type { Tool } from "@/lib/tools";
 
 type Status = "idle" | "processing" | "done";
@@ -91,6 +91,7 @@ export function MockToolRunner({ tool }: { tool: Tool }) {
   const [text, setText] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<MockResult | null>(null);
+  const [copied, setCopied] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const isFileBased = tool.inputType !== "text" && tool.inputType !== "none";
@@ -119,6 +120,17 @@ export function MockToolRunner({ tool }: { tool: Tool }) {
     document.body.appendChild(a);
     a.click();
     a.remove();
+  }
+
+  async function copyOutput() {
+    if (!result?.previewText) return;
+    try {
+      await navigator.clipboard.writeText(result.previewText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // ignore — clipboard may be blocked
+    }
   }
 
   const canRun = isFileBased ? files.length > 0 : tool.inputType === "none" ? true : text.trim().length > 0;
@@ -168,6 +180,11 @@ export function MockToolRunner({ tool }: { tool: Tool }) {
         <Button variant="outline" disabled={status !== "done" || !result} onClick={download}>
           <Download className="w-4 h-4" /> Download{result ? ` ${result.filename.split(".").pop()?.toUpperCase()}` : ""}
         </Button>
+        {result?.kind === "text" && (
+          <Button variant="outline" onClick={copyOutput} disabled={!result.previewText}>
+            {copied ? (<><Check className="w-4 h-4 text-primary" /> Copied</>) : (<><Copy className="w-4 h-4" /> Copy output</>)}
+          </Button>
+        )}
       </div>
 
       <div className="rounded-xl border bg-card p-5 min-h-32">
