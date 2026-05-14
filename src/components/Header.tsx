@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut, LayoutDashboard, User as UserIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./Logo";
+import { useAuth } from "@/lib/auth-context";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { to: "/tools", label: "All Tools" },
@@ -15,6 +17,7 @@ const navLinks = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { user, signOut } = useAuth();
   return (
     <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/80 border-b border-border/60">
       <div className="container mx-auto max-w-7xl px-4 h-16 flex items-center justify-between">
@@ -32,10 +35,30 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden md:flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm"><Link to="/login">Sign in</Link></Button>
-          <Button asChild size="sm" className="bg-[image:var(--gradient-brand)] text-primary-foreground hover:opacity-90 shadow-[var(--shadow-soft)]">
-            <Link to="/signup">Get Started</Link>
-          </Button>
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2">
+                  <div className="w-5 h-5 rounded-full bg-[image:var(--gradient-brand)] grid place-items-center text-white text-[10px] font-bold">
+                    {(user.email ?? "?").slice(0, 1).toUpperCase()}
+                  </div>
+                  <span className="max-w-[140px] truncate">{user.email}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild><Link to="/dashboard"><LayoutDashboard className="w-4 h-4" /> Dashboard</Link></DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => signOut()}><LogOut className="w-4 h-4" /> Sign out</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button asChild variant="ghost" size="sm"><Link to="/login">Sign in</Link></Button>
+              <Button asChild size="sm" className="bg-[image:var(--gradient-brand)] text-primary-foreground hover:opacity-90 shadow-[var(--shadow-soft)]">
+                <Link to="/signup">Get Started</Link>
+              </Button>
+            </>
+          )}
         </div>
         <button onClick={() => setOpen((o) => !o)} className="lg:hidden p-2 rounded-md hover:bg-accent/40" aria-label="Menu">
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
