@@ -7,7 +7,25 @@ import { categories, tools, type CategorySlug } from "@/lib/tools";
 import { ToolCard } from "@/components/ToolCard";
 
 export const Route = createFileRoute("/tools")({
-  head: () => ({ meta: [{ title: "All Tools — FoqusTools" }, { name: "description", content: "Browse 90+ free online tools across image, PDF, AI, conversion, design and developer categories." }] }),
+  head: () => {
+    const title = "All Tools — Browse 90+ Online Utilities | FoqusTools";
+    const description =
+      "Browse 90+ free online tools across image, PDF, AI, conversion, design and developer categories. No signup, no upload — works in your browser.";
+    const url = "https://foqustools.lovable.app/tools";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: url }],
+    };
+  },
   component: AllTools,
 });
 
