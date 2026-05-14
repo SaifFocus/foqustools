@@ -1,76 +1,150 @@
 import { CSSProperties } from "react";
+import { useId } from "react";
 
 /**
- * Decorative floating glass shapes — iridescent orbs and 4-pointed stars.
+ * Decorative floating glass shapes — semi-transparent, glossy, iridescent.
+ * Pure SVG with layered gradients + highlights to fake refraction.
  * Purely visual, pointer-events disabled. Place inside a `relative` parent.
  */
 
 type Common = { className?: string; style?: CSSProperties; size?: number; delay?: number };
+type Tint = "pink" | "violet" | "peach" | "sky";
 
-export function GlassOrb({ className = "", style, size = 200, delay = 0, tint = "pink" }: Common & { tint?: "pink" | "violet" | "peach" | "sky" }) {
-  const tints: Record<string, string> = {
-    pink: "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.95) 0%, rgba(255,210,225,0.85) 18%, rgba(255,170,200,0.55) 45%, rgba(230,140,200,0.25) 70%, rgba(200,120,210,0.05) 100%)",
-    violet: "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9) 0%, rgba(220,200,255,0.8) 20%, rgba(180,150,240,0.5) 50%, rgba(140,110,220,0.15) 80%)",
-    peach: "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.95) 0%, rgba(255,225,200,0.85) 20%, rgba(255,180,150,0.5) 50%, rgba(240,150,140,0.15) 80%)",
-    sky: "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.95) 0%, rgba(210,235,255,0.8) 22%, rgba(160,200,255,0.5) 55%, rgba(140,170,240,0.15) 85%)",
-  };
+const TINT_STOPS: Record<Tint, { core: string; mid: string; rim: string; shadow: string }> = {
+  pink:   { core: "#fff5f9", mid: "#ffb8d4", rim: "#e87bb4", shadow: "#c44a8e" },
+  violet: { core: "#f3ecff", mid: "#c8b0ff", rim: "#9a7be0", shadow: "#6b4ec0" },
+  peach:  { core: "#fff4ec", mid: "#ffc8a8", rim: "#f08a6e", shadow: "#c45a4a" },
+  sky:    { core: "#eef6ff", mid: "#a8c8ff", rim: "#6e8ee0", shadow: "#4a6cc4" },
+};
+
+export function GlassOrb({
+  className = "",
+  style,
+  size = 200,
+  delay = 0,
+  tint = "pink",
+}: Common & { tint?: Tint }) {
+  const id = useId().replace(/:/g, "");
+  const c = TINT_STOPS[tint];
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute rounded-full animate-float ${className}`}
-      style={{
-        width: size,
-        height: size,
-        background: tints[tint],
-        boxShadow: "inset -10px -20px 40px rgba(180,120,200,0.25), inset 15px 20px 50px rgba(255,255,255,0.6), 0 30px 60px -20px rgba(200,140,200,0.4)",
-        backdropFilter: "blur(2px)",
-        animationDelay: `${delay}s`,
-        ...style,
-      }}
+      className={`pointer-events-none absolute animate-float ${className}`}
+      style={{ width: size, height: size, animationDelay: `${delay}s`, ...style }}
     >
-      <div
-        className="absolute rounded-full"
-        style={{
-          top: "12%", left: "18%", width: "28%", height: "22%",
-          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.9), rgba(255,255,255,0) 70%)",
-          filter: "blur(2px)",
-        }}
-      />
+      <svg
+        viewBox="0 0 200 200"
+        className="w-full h-full"
+        style={{ filter: `drop-shadow(0 30px 40px ${c.shadow}55)` }}
+      >
+        <defs>
+          {/* Body: bright top-left, deepens to rim */}
+          <radialGradient id={`orb-body-${id}`} cx="35%" cy="30%" r="75%">
+            <stop offset="0%"   stopColor={c.core} stopOpacity="0.95" />
+            <stop offset="35%"  stopColor={c.mid}  stopOpacity="0.75" />
+            <stop offset="75%"  stopColor={c.rim}  stopOpacity="0.55" />
+            <stop offset="100%" stopColor={c.shadow} stopOpacity="0.35" />
+          </radialGradient>
+          {/* Inner refraction ring */}
+          <radialGradient id={`orb-rim-${id}`} cx="50%" cy="50%" r="50%">
+            <stop offset="70%"  stopColor="#ffffff" stopOpacity="0" />
+            <stop offset="92%"  stopColor={c.rim}   stopOpacity="0.45" />
+            <stop offset="100%" stopColor={c.shadow} stopOpacity="0.0" />
+          </radialGradient>
+          {/* Bottom-right warm bounce light */}
+          <radialGradient id={`orb-bounce-${id}`} cx="75%" cy="80%" r="40%">
+            <stop offset="0%"   stopColor={c.mid}    stopOpacity="0.55" />
+            <stop offset="100%" stopColor={c.mid}    stopOpacity="0" />
+          </radialGradient>
+          {/* Top specular highlight */}
+          <radialGradient id={`orb-spec-${id}`} cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.95" />
+            <stop offset="60%"  stopColor="#ffffff" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <circle cx="100" cy="100" r="96" fill={`url(#orb-body-${id})`} />
+        <circle cx="100" cy="100" r="96" fill={`url(#orb-rim-${id})`} />
+        <circle cx="100" cy="100" r="96" fill={`url(#orb-bounce-${id})`} />
+
+        {/* Big soft top-left highlight */}
+        <ellipse cx="72" cy="58" rx="38" ry="26" fill={`url(#orb-spec-${id})`} transform="rotate(-25 72 58)" />
+        {/* Tight glossy catchlight */}
+        <ellipse cx="62" cy="48" rx="10" ry="5" fill="#ffffff" opacity="0.95" transform="rotate(-25 62 48)" />
+        {/* Small bottom catchlight */}
+        <ellipse cx="138" cy="150" rx="14" ry="4" fill="#ffffff" opacity="0.35" transform="rotate(-20 138 150)" />
+      </svg>
     </div>
   );
 }
 
-export function GlassStar({ className = "", style, size = 160, delay = 0 }: Common) {
-  // 4-pointed star (sparkle) with iridescent fill
+export function GlassStar({
+  className = "",
+  style,
+  size = 160,
+  delay = 0,
+  tint = "violet",
+}: Common & { tint?: Tint }) {
+  const id = useId().replace(/:/g, "");
+  const c = TINT_STOPS[tint];
+  // 4-pointed sparkle with deeply concave sides — bulging glassy points
+  const starPath =
+    "M100 6 " +
+    "C 104 70, 130 96, 194 100 " +
+    "C 130 104, 104 130, 100 194 " +
+    "C 96 130, 70 104, 6 100 " +
+    "C 70 96, 96 70, 100 6 Z";
   return (
     <div
       aria-hidden
       className={`pointer-events-none absolute animate-float-slow ${className}`}
       style={{ width: size, height: size, animationDelay: `${delay}s`, ...style }}
     >
-      <svg viewBox="0 0 200 200" className="w-full h-full" style={{ filter: "drop-shadow(0 20px 30px rgba(180,120,220,0.35))" }}>
+      <svg
+        viewBox="0 0 200 200"
+        className="w-full h-full"
+        style={{ filter: `drop-shadow(0 25px 35px ${c.shadow}55)` }}
+      >
         <defs>
-          <radialGradient id="starGrad" cx="40%" cy="35%" r="70%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.95)" />
-            <stop offset="25%" stopColor="rgba(255,220,180,0.85)" />
-            <stop offset="55%" stopColor="rgba(200,140,230,0.75)" />
-            <stop offset="100%" stopColor="rgba(140,90,200,0.5)" />
+          {/* Iridescent body gradient: peach → pink → violet */}
+          <linearGradient id={`star-body-${id}`} x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%"   stopColor="#fff2dc" stopOpacity="0.9" />
+            <stop offset="30%"  stopColor="#ffc7d8" stopOpacity="0.85" />
+            <stop offset="65%"  stopColor={c.mid}    stopOpacity="0.85" />
+            <stop offset="100%" stopColor={c.shadow} stopOpacity="0.7" />
+          </linearGradient>
+          {/* Inner glow */}
+          <radialGradient id={`star-glow-${id}`} cx="40%" cy="35%" r="55%">
+            <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.7" />
+            <stop offset="60%"  stopColor="#ffffff" stopOpacity="0.05" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
           </radialGradient>
-          <linearGradient id="starShine" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.7)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+          {/* Edge rim light */}
+          <linearGradient id={`star-rim-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.7" />
+            <stop offset="50%"  stopColor="#ffffff" stopOpacity="0" />
+            <stop offset="100%" stopColor={c.rim}    stopOpacity="0.5" />
           </linearGradient>
         </defs>
-        {/* 4-pointed star path */}
+
+        {/* Body */}
+        <path d={starPath} fill={`url(#star-body-${id})`} />
+        {/* Inner soft glow */}
+        <path d={starPath} fill={`url(#star-glow-${id})`} />
+        {/* Rim/edge highlight stroke */}
         <path
-          d="M100 5 C 105 70, 130 95, 195 100 C 130 105, 105 130, 100 195 C 95 130, 70 105, 5 100 C 70 95, 95 70, 100 5 Z"
-          fill="url(#starGrad)"
+          d={starPath}
+          fill="none"
+          stroke={`url(#star-rim-${id})`}
+          strokeWidth="2"
+          opacity="0.9"
         />
-        <path
-          d="M100 25 C 103 75, 125 97, 175 100 C 125 103, 103 125, 100 175 C 97 125, 75 103, 25 100 C 75 97, 97 75, 100 25 Z"
-          fill="url(#starShine)"
-          opacity="0.6"
-        />
+        {/* Bright top-left specular streak */}
+        <ellipse cx="78" cy="62" rx="18" ry="6" fill="#ffffff" opacity="0.8" transform="rotate(-35 78 62)" />
+        <ellipse cx="70" cy="55" rx="7" ry="2.5" fill="#ffffff" opacity="1" transform="rotate(-35 70 55)" />
+        {/* Tiny opposite catchlight */}
+        <ellipse cx="135" cy="138" rx="10" ry="2.5" fill="#ffffff" opacity="0.45" transform="rotate(-30 135 138)" />
       </svg>
     </div>
   );
@@ -80,11 +154,11 @@ export function GlassStar({ className = "", style, size = 160, delay = 0 }: Comm
 export function GlassDecor() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden -z-10">
-      <GlassOrb tint="pink" size={260} className="-left-20 top-40" delay={0} />
-      <GlassStar size={170} className="right-10 top-24" delay={1.2} />
-      <GlassOrb tint="violet" size={90} className="right-32 bottom-24" delay={0.6} />
-      <GlassStar size={90} className="left-1/3 bottom-10" delay={2} />
-      <GlassOrb tint="peach" size={130} className="right-1/4 top-1/2" delay={1.5} />
+      <GlassOrb tint="pink"   size={300} className="-left-24 top-32" delay={0} />
+      <GlassStar tint="violet" size={210} className="right-8 top-16" delay={1.2} />
+      <GlassOrb tint="violet" size={110} className="right-40 bottom-20" delay={0.6} />
+      <GlassStar tint="peach"  size={95}  className="left-1/3 bottom-8" delay={2} />
+      <GlassOrb tint="peach"  size={140} className="right-1/4 top-1/2" delay={1.5} />
     </div>
   );
 }
