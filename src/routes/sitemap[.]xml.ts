@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { tools } from "@/lib/tools";
+import { tools, categories } from "@/lib/tools";
 
 const BASE_URL = "https://foqustools.lovable.app";
 
@@ -13,6 +13,11 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/tools", changefreq: "weekly", priority: "0.9" },
           { path: "/about", changefreq: "monthly", priority: "0.6" },
+          ...categories.map((c) => ({
+            path: `/category/${c.slug}`,
+            changefreq: "weekly",
+            priority: "0.8",
+          })),
           ...tools.map((t) => ({
             path: `/tool/${t.slug}`,
             changefreq: "monthly",
