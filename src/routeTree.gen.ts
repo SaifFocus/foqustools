@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolSlugRouteImport } from './routes/tool.$slug'
@@ -26,6 +27,11 @@ const ToolsRoute = ToolsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -62,6 +68,7 @@ const ApiAiImageRoute = ApiAiImageRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/pricing'
     | '/sitemap.xml'
     | '/tools'
     | '/category/$slug'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/pricing'
     | '/sitemap.xml'
     | '/tools'
     | '/category/$slug'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/pricing'
     | '/sitemap.xml'
     | '/tools'
     | '/category/$slug'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  PricingRoute: typeof PricingRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ToolsRoute: typeof ToolsRoute
   CategorySlugRoute: typeof CategorySlugRoute
@@ -148,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -198,6 +218,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  PricingRoute: PricingRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ToolsRoute: ToolsRoute,
   CategorySlugRoute: CategorySlugRoute,
@@ -208,3 +229,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
