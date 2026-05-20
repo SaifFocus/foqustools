@@ -14,6 +14,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolSlugRouteImport } from './routes/tool.$slug'
+import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as ApiAiTextRouteImport } from './routes/api/ai/text'
 import { Route as ApiAiImageRouteImport } from './routes/api/ai/image'
 
@@ -42,6 +43,11 @@ const ToolSlugRoute = ToolSlugRouteImport.update({
   path: '/tool/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategorySlugRoute = CategorySlugRouteImport.update({
+  id: '/category/$slug',
+  path: '/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAiTextRoute = ApiAiTextRouteImport.update({
   id: '/api/ai/text',
   path: '/api/ai/text',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/tool/$slug': typeof ToolSlugRoute
   '/api/ai/image': typeof ApiAiImageRoute
   '/api/ai/text': typeof ApiAiTextRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/tool/$slug': typeof ToolSlugRoute
   '/api/ai/image': typeof ApiAiImageRoute
   '/api/ai/text': typeof ApiAiTextRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/tool/$slug': typeof ToolSlugRoute
   '/api/ai/image': typeof ApiAiImageRoute
   '/api/ai/text': typeof ApiAiTextRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/sitemap.xml'
     | '/tools'
+    | '/category/$slug'
     | '/tool/$slug'
     | '/api/ai/image'
     | '/api/ai/text'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/sitemap.xml'
     | '/tools'
+    | '/category/$slug'
     | '/tool/$slug'
     | '/api/ai/image'
     | '/api/ai/text'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/sitemap.xml'
     | '/tools'
+    | '/category/$slug'
     | '/tool/$slug'
     | '/api/ai/image'
     | '/api/ai/text'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ToolsRoute: typeof ToolsRoute
+  CategorySlugRoute: typeof CategorySlugRoute
   ToolSlugRoute: typeof ToolSlugRoute
   ApiAiImageRoute: typeof ApiAiImageRoute
   ApiAiTextRoute: typeof ApiAiTextRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/category/$slug': {
+      id: '/category/$slug'
+      path: '/category/$slug'
+      fullPath: '/category/$slug'
+      preLoaderRoute: typeof CategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/ai/text': {
       id: '/api/ai/text'
       path: '/api/ai/text'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ToolsRoute: ToolsRoute,
+  CategorySlugRoute: CategorySlugRoute,
   ToolSlugRoute: ToolSlugRoute,
   ApiAiImageRoute: ApiAiImageRoute,
   ApiAiTextRoute: ApiAiTextRoute,
