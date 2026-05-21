@@ -71,6 +71,9 @@ export function Header() {
       {open && (
         <div className="lg:hidden border-t border-border/60 bg-background">
           <div className="container mx-auto max-w-7xl px-4 py-3 flex flex-col gap-1">
+            <div className="pb-2">
+              <GlobalSearch />
+            </div>
             {navLinks.map((l) => (
               <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent/40">{l.label}</Link>
             ))}
