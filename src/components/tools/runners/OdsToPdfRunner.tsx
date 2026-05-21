@@ -7,7 +7,7 @@ import { Dropzone, downloadBlob } from "../Dropzone";
 export function OdsToPdfRunner() {
   const [files, setFiles] = useState<File[]>([]);
   const [busy, setBusy] = useState(false);
-  const [result, setResult] = useState<{ url: string; name: string; size: number } | null>(null);
+  const [result, setResult] = useState<{ url: string; name: string; size: number; blob: Blob } | null>(null);
 
   async function run() {
     if (!files.length) return;
@@ -49,7 +49,7 @@ export function OdsToPdfRunner() {
       const blob = pdf.output("blob");
       const url = URL.createObjectURL(blob);
       const outName = file.name.replace(/\.ods$/i, "") + ".pdf";
-      setResult({ url, name: outName, size: blob.size });
+      setResult({ url, name: outName, size: blob.size, blob });
       toast.success("PDF ready");
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Failed to convert");
@@ -76,7 +76,7 @@ export function OdsToPdfRunner() {
           <embed src={result.url} type="application/pdf" className="w-full h-80 rounded-md border" />
           <div className="flex items-center justify-between gap-3">
             <p className="text-xs text-muted-foreground"><span className="font-mono">{result.name}</span> · {(result.size / 1024).toFixed(1)} KB</p>
-            <Button variant="outline" onClick={async () => downloadBlob(await (await fetch(result.url)).blob(), result.name)}>
+            <Button variant="outline" onClick={() => downloadBlob(result.blob, result.name)}>
               <Download className="w-4 h-4" /> Download
             </Button>
           </div>
