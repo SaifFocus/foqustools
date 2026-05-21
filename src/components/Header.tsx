@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, X, LogOut, LayoutDashboard, User as UserIcon } from "lucide-react";
+import { Menu, X, LogOut, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./Logo";
 import { useAuth } from "@/lib/auth-context";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { GlobalSearch } from "./GlobalSearch";
 
 const navLinks = [
   { to: "/tools", label: "All Tools" },
