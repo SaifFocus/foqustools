@@ -41,7 +41,7 @@ export function OdsToPdfRunner() {
           body,
           startY: 50,
           styles: { fontSize: 8, cellPadding: 4, overflow: "linebreak" },
-          headStyles: { fillBlend: false, fillColor: [30, 30, 30], textColor: 255 },
+          headStyles: { fillColor: [30, 30, 30], textColor: 255 },
           margin: { left: 40, right: 40, bottom: 40 },
         });
       });
