@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, X, LogOut, LayoutDashboard, User as UserIcon } from "lucide-react";
+import { Menu, X, LogOut, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./Logo";
 import { useAuth } from "@/lib/auth-context";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { GlobalSearch } from "./GlobalSearch";
 
 const navLinks = [
   { to: "/tools", label: "All Tools" },
@@ -36,6 +37,7 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden md:flex items-center gap-2">
+          <GlobalSearch />
           <LanguageSwitcher />
           {user ? (
             <DropdownMenu>
@@ -69,6 +71,9 @@ export function Header() {
       {open && (
         <div className="lg:hidden border-t border-border/60 bg-background">
           <div className="container mx-auto max-w-7xl px-4 py-3 flex flex-col gap-1">
+            <div className="pb-2">
+              <GlobalSearch />
+            </div>
             {navLinks.map((l) => (
               <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent/40">{l.label}</Link>
             ))}
