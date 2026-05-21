@@ -8,6 +8,7 @@ import { PaletteExtractorRunner } from "./runners/PaletteExtractorRunner";
 import { AiTextRunner } from "./runners/AiTextRunner";
 import { AiImageRunner } from "./runners/AiImageRunner";
 import { VectorizerRunner } from "./runners/VectorizerRunner";
+import { OdsToPdfRunner } from "./runners/OdsToPdfRunner";
 import { ComingSoonRunner } from "./runners/ComingSoonRunner";
 import { XmlFormatter, HtmlFormatter, RegexTester, ApiTester, SvgEditor } from "./runners/DevRunners";
 import { JsonFormatter, Base64Tool, UuidTool, TimestampTool, ColorTool, MarkdownTool, MinifierTool } from "./WorkingTools";
@@ -27,6 +28,9 @@ export function resolveRunner(tool: Tool): ReactNode {
   if (s === "split-pdf" || s === "extract-pages") return <PdfRunner mode="extract-pages" />;
   if (s === "remove-pages") return <PdfRunner mode="remove-pages" />;
   if (s === "jpg-to-pdf") return <PdfRunner mode="jpg-to-pdf" />;
+
+  // Spreadsheet → PDF
+  if (s === "ods-to-pdf") return <OdsToPdfRunner />;
 
   // Vector / design
   if (s === "qr-generator") return <QrBarcodeRunner kind="qr" />;
