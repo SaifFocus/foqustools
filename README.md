@@ -1,42 +1,43 @@
-# OmniTools Hub
+# FoqUs Tools or OmniTools Hub
 
-Create a modern SaaS website called “OmniTools” — an all-in-one online tool hub for image tools, PDF tools, file converters, AI writing tools, vector/design tools, and developer utilities.
+**A growing collection of practical digital tools built to simplify everyday tasks, workflows, and creative processes.**
 
-The website should feel premium, fast, clean, and professional, similar to TinyWow, Canva tools, Adobe Express utilities, Remove.bg, Convertio, and iLovePDF.
+FoqUs Tools is a modern web-based utility platform created as an exploration of how small, focused tools can be brought together into a simple and accessible digital workspace.
 
-Build the full frontend structure with responsive design, clean UI, and tool pages prepared for future backend/API integration.
+The project focuses on clean interface design, usability, and building lightweight tools that solve specific problems without unnecessary complexity. Each tool is designed to be easy to discover, understand, and use directly from the browser.
 
-Main goal:
+### Purpose
 
-Users can browse categories, search for tools, open individual tool pages, upload files where relevant, see tool-specific controls, and download/export results later once backend logic is connected.
+FoqUs Tools was created as a **creative development and product-design project**, combining frontend development, UI/UX design, experimentation, and practical problem-solving.
 
-Use a modern design:
+The idea is to build a flexible foundation where new utilities can continuously be added as standalone tools, allowing the platform to grow alongside real-world needs and ideas.
 
-- Clean SaaS layout
+### Key Characteristics
 
-- Light background
+* Modern and responsive web interface
+* Collection of practical browser-based utilities
+* Simple, focused user experiences
+* Modular structure designed for adding new tools
+* Mobile and desktop friendly
+* Emphasis on usability and visual clarity
+* Lightweight browser-first approach
+* Designed as an expandable digital toolbox
 
-- Soft gradients
+### Technologies
 
-- Rounded cards
+* **TypeScript**
+* **React**
+* **Vite**
+* **Tailwind CSS**
+* **HTML5 / CSS3**
+* **Modern JavaScript APIs**
 
-- Professional icons
+### Project Status
 
-- Smooth hover effects
+**Active Prototype / Experimental Project**
 
-- Large hero section
+FoqUs Tools is an evolving project and serves both as a practical toolbox and as a demonstration of modern web development, product thinking, and UI/UX experimentation.
 
-- Strong CTA buttons
-
-- Mobile responsive
-
-- SEO-friendly pages
-
-- Fast navigation
-
-- Category filtering
-
-- Search bar for tools
 
 Website pages:
 
@@ -280,11 +281,7 @@ Each tool page should include:
 
 - SEO text section
 
-Important:
-
-For now, create frontend/demo functionality only where backend is required. Use placeholders and mock processing states for advanced tools such as background remover, AI image generator, PDF conversion, video conversion, OCR, and watermark remover.
-
-For simple developer tools, add working frontend functionality where possible:
+For simple developer tools, add working frontend functionality;
 
 - JSON formatter
 
@@ -303,86 +300,6 @@ For simple developer tools, add working frontend functionality where possible:
 - JS minifier
 
 Navigation:
-
-Top navbar:
-
-- Logo: OmniTools
-
-- All Tools
-
-- Image Tools
-
-- PDF Tools
-
-- AI Tools
-
-- Developer Tools
-
-- Pricing
-
-- Sign in
-
-- Get Started
-
-Footer:
-
-- Tool categories
-
-- Popular tools
-
-- Company links
-
-- Legal links
-
-- Social links
-
-Dashboard:
-
-Create a simple dashboard where users can see:
-
-- Recent files
-
-- Recently used tools
-
-- Usage limits
-
-- Upgrade button
-
-- Saved projects placeholder
-
-Pricing:
-
-Create three pricing plans:
-
-1. Free
-
-   - Limited daily usage
-
-   - Basic tools
-
-   - Small file size
-
-2. Pro
-
-   - Unlimited basic tools
-
-   - Larger files
-
-   - Batch processing
-
-   - AI tools
-
-   - No watermark
-
-3. Business
-
-   - Team access
-
-   - Priority processing
-
-   - API access placeholder
-
-   - Higher limits
 
 Technical requirements:
 
@@ -412,7 +329,7 @@ Technical requirements:
 
 Design style:
 
-Use a premium tech/startup look:
+Premium tech/startup look:
 
 - White and light gray background
 
@@ -430,19 +347,8 @@ Use a premium tech/startup look:
 
 - Smooth transitions
 
-Create the complete website frontend now.
-
-This project was built with [Lovable](https://lovable.dev).
 
 **Live app**: https://foqustools.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/a3cae2d5-43c3-4d1f-8dcf-2bf6986312aa).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
